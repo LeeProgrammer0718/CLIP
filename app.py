@@ -31,7 +31,7 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 recipient_id = message['sender']['id']
                 if message['message'].get('text'):
-                    response_sent_text ="{}".format(now)                                                          #get_message()
+                    response_sent_text ="{}".format(time(now))                                                          #get_message()
                     send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
@@ -60,5 +60,31 @@ def send_message(recipient_id, response):
     bot.send_text_message(recipient_id, response)
     return "success"
 
+def time(time): #서버가 미국에 있으므로 한국에서 사용하려면 시차계산 필요 
+    date = [0,1,2,3]
+    year = time.year
+    month = time.month
+    day = time.day
+    hour = time.hour
+    khour = hour+9 #한국 시차계산
+    kday = day
+    kmonth = month
+    if khour >24:
+        khour = khour-24
+        kday +=1
+        if month in [1,3,5,7,8,10,12]:
+            if kday>31:
+                kday = 1
+                kmonth +=1
+        else:
+            if kday>30:
+                kday = 1
+                kmonth +=1
+    date[0] = year
+    date[1] = kmonth
+    date[2] = kday
+    date[3] = khour
+    return date
 if __name__ == "__main__":
     app.run()
+
