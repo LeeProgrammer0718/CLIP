@@ -5,6 +5,8 @@ from pymessenger.bot import Bot
 import os
 import requests
 import bs4
+import datetime
+now = datetime.datetime.now()#시간정보 얻음
 app = Flask(__name__)
 ACCESS_TOKEN =os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
@@ -29,7 +31,7 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 recipient_id = message['sender']['id']
                 if message['message'].get('text'):
-                    response_sent_text = get_message()
+                    response_sent_text ="{}".format(now)                                                          #get_message()
                     send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
