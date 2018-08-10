@@ -31,7 +31,7 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 recipient_id = message['sender']['id']
                 if message['message'].get('text'):
-                    response_sent_text ="{}".format(time(now))                                                          #get_message()
+                    response_sent_text =lunch(time(now))                                                      #get_message()
                     send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
@@ -85,6 +85,31 @@ def time(time): #서버가 미국에 있으므로 한국에서 사용하려면 �
     date[2] = kday
     date[3] = khour
     return date
+
+def lunch(time)
+    year = str(time[0])
+    month = str(time[1])
+    if time[2]<10:
+        day = '0' + str(time[2])
+    else:
+        day = str(time[2])
+    url = "http://pungduck.hs.kr/lunch.view?date="+year+month+day
+    r = requests.get(url)
+    c = r.content
+    html = BeautifulSoup(c,"html.parser") #html 파싱
+    #print(html)
+    menu = html.find("div",{"class":"menuName"})
+    #print(menu)
+    try:
+        span = menu.find("span")
+        return span.text#메뉴출력
+    except:
+        return "급식이 없어요!!"
+
+
+
+
+    
 if __name__ == "__main__":
     app.run()
 
