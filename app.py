@@ -4,7 +4,7 @@ from flask import Flask, request
 from pymessenger.bot import Bot
 import os
 import requests
-import bs4
+from bs4 import BeautifulSoup
 import datetime
 now = datetime.datetime.now()#시간정보 얻음
 app = Flask(__name__)
