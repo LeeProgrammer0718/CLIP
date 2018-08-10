@@ -33,6 +33,7 @@ def receive_message():
                 if message['message'].get('text'):
                     response_sent_text =lunch(time(now))             #time(now)        
                     send_message(recipient_id, response_sent_text)
+                    bot.send_image_url(recipient_id, "https://cdn-images-1.medium.com/max/327/1*paQ7E6f2VyTKXHpR-aViFg.png")
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
                     response_sent_nontext = get_message()
@@ -106,10 +107,10 @@ def lunch(time):
     except:
         return "급식이 없어요!!"
 
-
-
-
-    
+def sendtypingon(recipient_id):
+    #사람인척하기
+    send = {"recipient":{"id":recipient_id},"sender_action":"typing_on"}
+    return send
 if __name__ == "__main__":
     app.run()
 
